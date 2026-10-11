@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="100%" height="100%">
+  <defs>
+    <!-- Gradients & Glow Filters -->
+    <linearGradient id="tdp-cyan-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00C8EE"/>
+      <stop offset="100%" stop-color="#00A9C6"/>
+    </linearGradient>
+    <linearGradient id="tdp-dark-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#142640"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <filter id="tdp-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- EMBLEM GROUP (Left 160x160 area) -->
+  <g transform="translate(10, 8)">
+    <!-- Outer Navy Hexagon Frame -->
+    <polygon 
+      points="74,8 136,44 136,104 74,140 12,104 12,44" 
+      fill="none" 
+      stroke="#0A1628" 
+      stroke-width="15" 
+      stroke-linejoin="round"
+      class="tdp-hex-outer"
+    />
+
+    <!-- Inner Cyan Hexagon Core -->
+    <polygon 
+      points="74,34 112,56 112,94 74,116 36,94 36,56" 
+      fill="#00A9C6" 
+      opacity="0.9"
+      stroke="#00C8EE" 
+      stroke-width="3"
+      stroke-linejoin="round"
+      class="tdp-hex-inner"
+    />
+
+    <!-- Inner Core Cutout (Hex Center) -->
+    <polygon 
+      points="74,54 92,65 92,85 74,96 56,85 56,65" 
+      fill="#0A1628" 
+      class="tdp-hex-core"
+    />
+
+    <!-- Circuit Trace Lines & Arrows -->
+    <!-- Line 1: Leftward Arrow -->
+    <path 
+      d="M 64,80 L -4,80" 
+      fill="none" 
+      stroke="#00C8EE" 
+      stroke-width="7" 
+      stroke-linecap="round"
+    />
+    <polygon points="-12,80 4,70 4,90" fill="#00C8EE"/>
+
+    <!-- Line 2: Down-Left Arrow -->
+    <path 
+      d="M 86,96 L 68,118 L 44,136 L 36,146" 
+      fill="none" 
+      stroke="#00C8EE" 
+      stroke-width="7" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    />
+    <polygon points="30,154 34,138 48,148" fill="#00C8EE"/>
+    <circle cx="68" cy="118" r="5" fill="#0A1628" stroke="#00C8EE" stroke-width="4"/>
+
+    <!-- Line 3: Up-Right Arrow & Circuit Bus -->
+    <path 
+      d="M 88,88 L 108,70 L 108,54 L 144,30" 
+      fill="none" 
+      stroke="#00C8EE" 
+      stroke-width="7" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    />
+    <polygon points="152,24 136,28 144,42" fill="#00C8EE"/>
+    <circle cx="88" cy="88" r="5" fill="#0A1628" stroke="#00C8EE" stroke-width="4"/>
+    <circle cx="108" cy="70" r="4.5" fill="#0A1628" stroke="#00C8EE" stroke-width="3.5"/>
+
+    <!-- Right loop bus circuit -->
+    <path 
+      d="M 118,66 L 140,66 C 148,66 154,72 154,80 C 154,88 148,94 140,94 L 122,94" 
+      fill="none" 
+      stroke="#00C8EE" 
+      stroke-width="7" 
+      stroke-linecap="round"
+    />
+    <circle cx="140" cy="66" r="4" fill="#00C8EE"/>
+  </g>
+
+  <!-- TYPOGRAPHY GROUP (Right Side) -->
+  <g transform="translate(182, 0)">
+    <!-- "TheDigital" -->
+    <text 
+      x="0" 
+      y="76" 
+      font-family="'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif" 
+      font-size="64" 
+      font-weight="800" 
+      letter-spacing="-1.5"
+      fill="#0A1628"
+      class="tdp-text-primary"
+    >TheDigital</text>
+
+    <!-- "Portal" -->
+    <text 
+      x="0" 
+      y="136" 
+      font-family="'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif" 
+      font-size="64" 
+      font-weight="800" 
+      letter-spacing="-1.5"
+      fill="#00A9C6"
+      class="tdp-text-accent"
+    >Portal</text>
+  </g>
+</svg>
