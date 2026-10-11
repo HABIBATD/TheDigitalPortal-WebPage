@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
+import PlatformShowcase from './PlatformShowcase';
+import { usePlatform } from './context/PlatformContext';
+import DistributorPortal from './components/distributor/DistributorPortal';
+import PharmacyMobileApp from './components/pharmacy/PharmacyMobileApp';
+import PlatformSwitcherBar from './components/common/PlatformSwitcherBar';
 
 /* ─── Authentic Vector Brand Logo ──────────────────────────────── */
 export function BrandLogo({ light = false, height = 40, showText = true }) {
@@ -331,6 +336,7 @@ function TrustedBy() {
 /* ─── Portals Section (2x2 Balanced Layout) ──────────────────── */
 function PortalsSection({ onOpenDemo, onOpenPortal }) {
   const [ref, inView] = useInView();
+  const { setCurrentView, setDistributorModule } = usePlatform();
 
   const portals = [
     {
@@ -437,11 +443,53 @@ function PortalsSection({ onOpenDemo, onOpenPortal }) {
               </div>
 
               <div className="portal-card-footer">
+                {portal.portalKey === 'distributor' && (
+                  <button
+                    className="btn-portal-primary-launch"
+                    onClick={() => setCurrentView('distributor')}
+                  >
+                    <span>Launch Distributor Command Center</span>
+                    <span>→</span>
+                  </button>
+                )}
+                {portal.portalKey === 'pharmacy' && (
+                  <button
+                    className="btn-portal-primary-launch"
+                    onClick={() => setCurrentView('pharmacy')}
+                  >
+                    <span>Launch Pharmacy Mobile App Simulator</span>
+                    <span>→</span>
+                  </button>
+                )}
+                {portal.portalKey === 'courier' && (
+                  <button
+                    className="btn-portal-primary-launch"
+                    onClick={() => {
+                      setCurrentView('distributor');
+                      setDistributorModule('courier');
+                    }}
+                  >
+                    <span>Launch Logistics & Fleet Dispatch</span>
+                    <span>→</span>
+                  </button>
+                )}
+                {portal.portalKey === 'intelligence' && (
+                  <button
+                    className="btn-portal-primary-launch"
+                    onClick={() => {
+                      setCurrentView('distributor');
+                      setDistributorModule('rule42');
+                    }}
+                  >
+                    <span>Launch Rule 42 & Tax Vault</span>
+                    <span>→</span>
+                  </button>
+                )}
                 <button
-                  className="btn-portal-demo"
+                  className="btn-portal-secondary-schedule"
                   onClick={onOpenDemo}
                 >
-                  Schedule Demo for this Portal →
+                  Schedule Guided Walkthrough
                 </button>
               </div>
             </div>
@@ -477,6 +525,43 @@ function StatsBand() {
             <span className="stat-label">{stat.label}</span>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Feature Block Item ─────────────────────────────────────── */
+function FeatureBlockItem({ feat, onOpenDemo }) {
+  const [ref, inView] = useInView();
+  return (
+    <div
+      className={`feature-block ${feat.reversed ? 'reversed' : ''}`}
+      ref={ref}
+    >
+      <div className={`feature-info ${inView ? 'animate-up' : ''}`}>
+        <div className="feature-eyebrow">✦ {feat.eyebrow}</div>
+        <h3 className="feature-title">{feat.title}</h3>
+        <p className="feature-desc">{feat.desc}</p>
+        <ul className="feature-bullets">
+          {feat.bullets.map(b => (
+            <li key={b}>
+              <span className="bullet-icon">✓</span>
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="feature-cta-group">
+          <button onClick={onOpenDemo} className="btn-primary">
+            Request Feature Walkthrough
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div className={`feature-img-wrapper ${inView ? 'animate-up delay-2' : ''}`}>
+        <img src={feat.img} alt={feat.imgAlt} loading="lazy" />
       </div>
     </div>
   );
@@ -541,42 +626,9 @@ function FeaturesSection({ onOpenDemo }) {
           </p>
         </div>
 
-        {features.map((feat) => {
-          const [ref, inView] = useInView();
-          return (
-            <div
-              key={feat.title}
-              className={`feature-block ${feat.reversed ? 'reversed' : ''}`}
-              ref={ref}
-            >
-              <div className={`feature-info ${inView ? 'animate-up' : ''}`}>
-                <div className="feature-eyebrow">✦ {feat.eyebrow}</div>
-                <h3 className="feature-title">{feat.title}</h3>
-                <p className="feature-desc">{feat.desc}</p>
-                <ul className="feature-bullets">
-                  {feat.bullets.map(b => (
-                    <li key={b}>
-                      <span className="bullet-icon">✓</span>
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="feature-cta-group">
-                  <button onClick={onOpenDemo} className="btn-primary">
-                    Request Feature Walkthrough
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              <div className={`feature-img-wrapper ${inView ? 'animate-up delay-2' : ''}`}>
-                <img src={feat.img} alt={feat.imgAlt} loading="lazy" />
-              </div>
-            </div>
-          );
-        })}
+        {features.map((feat) => (
+          <FeatureBlockItem key={feat.title} feat={feat} onOpenDemo={onOpenDemo} />
+        ))}
       </div>
     </section>
   );
@@ -1213,32 +1265,32 @@ function PortalModal({ isOpen, onClose }) {
 
   const portals = [
     {
+      portalKey: 'distributor',
       title: 'Distributor Web Dashboard',
-      desc: 'For distribution owners, managers & warehouse inventory staff',
+      desc: '15 enterprise modules: orders, 6-mo expiries, FBR ATL engine, fleet & payroll.',
       icon: '🖥️',
-      url: 'https://distributor.thedigitalportal.pk',
-      badge: 'Web App',
+      badge: '15 Modules Live',
     },
     {
-      title: 'Pharmacy Mobile App',
-      desc: 'For retail pharmacists to browse catalogs & place orders',
+      portalKey: 'pharmacy',
+      title: 'Pharmacy Mobile Counter App',
+      desc: 'Zero-password 3-step login, 1-tap urgent requisition, DRAP expiry intimations.',
       icon: '📱',
-      url: 'https://pharmacy.thedigitalportal.pk',
-      badge: 'Mobile Web / Android',
+      badge: 'Counter UI',
     },
     {
-      title: 'Logistics Courier App',
-      desc: 'For dispatch drivers & delivery fleet personnel',
+      portalKey: 'courier',
+      title: 'Logistics Courier & Heavy Fleet',
+      desc: 'TCS, M&P, in-house cold-chain sensor manifests and run-sheets.',
       icon: '🚚',
-      url: 'https://courier.thedigitalportal.pk',
-      badge: 'Driver App',
+      badge: 'Fleet Dispatch',
     },
     {
-      title: 'Network Intelligence Suite',
-      desc: 'For head-office executive oversight and multi-branch analytics',
+      portalKey: 'intelligence',
+      title: 'Rule 42 Tax & Compliance Vault',
+      desc: 'FBR Section 153 certificates, cryptographic QR stamp, principal claims.',
       icon: '🔬',
-      url: 'https://admin.thedigitalportal.pk',
-      badge: 'Admin Console',
+      badge: 'FBR Engine',
     },
   ];
 
@@ -1274,7 +1326,17 @@ function PortalModal({ isOpen, onClose }) {
               <button
                 className="btn-primary btn-portal-go"
                 onClick={() => {
-                  alert(`Connecting to ${p.title} secure environment. (Demo Mode Enabled)`);
+                  if (p.portalKey === 'distributor') {
+                    setCurrentView('distributor');
+                  } else if (p.portalKey === 'pharmacy') {
+                    setCurrentView('pharmacy');
+                  } else if (p.portalKey === 'courier') {
+                    setCurrentView('distributor');
+                    setDistributorModule('courier');
+                  } else if (p.portalKey === 'intelligence') {
+                    setCurrentView('distributor');
+                    setDistributorModule('rule42');
+                  }
                   onClose();
                 }}
               >
@@ -1295,11 +1357,32 @@ function PortalModal({ isOpen, onClose }) {
 
 /* ─── App Root Component ─────────────────────────────────────── */
 export default function App() {
+  const { currentView } = usePlatform();
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [portalModalOpen, setPortalModalOpen] = useState(false);
 
+  // If in dedicated portal view, render that workspace directly
+  if (currentView === 'distributor') {
+    return (
+      <>
+        <PlatformSwitcherBar />
+        <DistributorPortal />
+      </>
+    );
+  }
+
+  if (currentView === 'pharmacy') {
+    return (
+      <>
+        <PlatformSwitcherBar />
+        <PharmacyMobileApp />
+      </>
+    );
+  }
+
   return (
     <>
+      <PlatformSwitcherBar />
       <Navbar
         onOpenDemo={() => setDemoModalOpen(true)}
         onOpenPortal={() => setPortalModalOpen(true)}
@@ -1313,6 +1396,7 @@ export default function App() {
         />
         <StatsBand />
         <FeaturesSection onOpenDemo={() => setDemoModalOpen(true)} />
+        <PlatformShowcase onOpenDemo={() => setDemoModalOpen(true)} />
         <RoiCalculator onOpenDemo={() => setDemoModalOpen(true)} />
         <SecuritySection />
         <Testimonials />

@@ -1019,6 +1019,51 @@ a { text-decoration: none; }
   border-color: var(--primary);
 }
 
+.btn-portal-primary-launch {
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  color: white;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 9999px;
+  transition: var(--transition);
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 169, 198, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.btn-portal-primary-launch:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-portal-secondary-schedule {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 0.55rem 1rem;
+  border-radius: 9999px;
+  transition: var(--transition);
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn-portal-secondary-schedule:hover {
+  background: var(--surface-alt);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
 /* ─── Stats Band (High Contrast & Prominent) ─────────────────── */
 .stats-band {
   background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
