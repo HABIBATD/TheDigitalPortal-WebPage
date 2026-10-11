@@ -209,12 +209,75 @@ a { text-decoration: none; }
   align-items: center;
   text-decoration: none;
   cursor: pointer;
+  line-height: 1;
 }
 
-.brand-logo-wrap {
-  display: flex;
+.brand-logo-lockup {
+  display: inline-flex;
   align-items: center;
-  transition: var(--transition);
+  gap: 0.75rem;
+  text-decoration: none;
+  line-height: 1;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.brand-logo-lockup:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.brand-logo-emblem {
+  height: 100%;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 169, 198, 0.32));
+  transition: filter 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-logo-lockup:hover .brand-logo-emblem {
+  filter: drop-shadow(0 0 16px rgba(0, 200, 238, 0.75)) drop-shadow(0 2px 6px rgba(10, 22, 40, 0.35));
+  transform: scale(1.06);
+}
+
+.brand-logo-text {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.brand-text-main {
+  font-weight: 800;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.brand-text-main.light {
+  color: #FFFFFF;
+  text-shadow: 0 1px 6px rgba(10, 22, 40, 0.45);
+}
+
+.brand-text-main.dark {
+  color: #0A1628;
+}
+
+.brand-text-portal {
+  font-weight: 800;
+  background: linear-gradient(135deg, #00C8EE 0%, #009BB5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: filter 0.25s ease;
+}
+
+.brand-logo-lockup:hover .brand-text-portal {
+  background: linear-gradient(135deg, #26E6FF 0%, #00B4D8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .nav-links {
@@ -357,6 +420,15 @@ a { text-decoration: none; }
   gap: 2rem;
 }
 
+.mobile-nav-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 0.5rem;
+}
+
 .mobile-nav-links {
   list-style: none;
   display: flex;
@@ -490,6 +562,27 @@ a { text-decoration: none; }
   border-radius: 50%;
   box-shadow: 0 0 10px var(--accent-cyan);
   animation: pulse-dot 1.8s infinite;
+}
+
+.eyebrow-logo-emblem {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+  filter: drop-shadow(0 0 6px rgba(0, 200, 238, 0.7));
+  animation: emblemPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes emblemPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px rgba(0, 200, 238, 0.6));
+  }
+  50% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 14px rgba(0, 230, 255, 0.95));
+  }
 }
 
 .hero-heading {
@@ -661,6 +754,23 @@ a { text-decoration: none; }
 .badge-icon.green { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
 .badge-icon.blue { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
 .badge-icon.teal { background: rgba(0, 169, 198, 0.2); color: var(--accent-cyan); }
+
+.badge-icon.portal-emblem-badge {
+  background: rgba(0, 169, 198, 0.2) !important;
+  border: 1px solid rgba(0, 169, 198, 0.45) !important;
+  box-shadow: 0 0 12px rgba(0, 200, 238, 0.3) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.floating-badge-logo {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 6px rgba(0, 200, 238, 0.8));
+}
 
 .badge-text-label {
   display: block;
@@ -1696,6 +1806,12 @@ footer {
   margin-bottom: 2rem;
 }
 
+.modal-logo-top {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
 .modal-eyebrow {
   display: inline-block;
   font-size: 0.72rem;
@@ -1992,6 +2108,12 @@ footer {
 }
 
 @media (max-width: 580px) {
+  .brand-logo-lockup {
+    gap: 0.5rem;
+  }
+  .brand-logo-text {
+    font-size: 1.15rem;
+  }
   .stats-grid {
     grid-template-columns: 1fr;
   }

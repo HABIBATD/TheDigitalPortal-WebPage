@@ -2,121 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
 
 /* ─── Authentic Vector Brand Logo ──────────────────────────────── */
-export function BrandLogo({ light = false, height = 36 }) {
-  const width = Math.round(height * 3.25);
-  const primaryTextColor = light ? '#FFFFFF' : '#0A1628';
-  const outerHexStroke = light ? 'rgba(255, 255, 255, 0.35)' : '#0A1628';
-  const innerHexCutout = light ? '#0A1628' : '#0A1628';
-
+export function BrandLogo({ light = false, height = 40, showText = true }) {
   return (
-    <div className="brand-logo-wrap" style={{ height }}>
-      <svg
-        viewBox="0 0 520 160"
-        width={width}
-        height={height}
-        style={{ display: 'block', overflow: 'visible' }}
-        xmlns="http://www.w3.org/2000/svg"
-        aria-label="TheDigitalPortal Logo"
-      >
-        {/* EMBLEM */}
-        <g transform="translate(10, 8)">
-          {/* Outer Hexagon Frame */}
-          <polygon
-            points="74,8 136,44 136,104 74,140 12,104 12,44"
-            fill="none"
-            stroke={outerHexStroke}
-            strokeWidth="14"
-            strokeLinejoin="round"
-          />
-
-          {/* Inner Cyan Hexagon */}
-          <polygon
-            points="74,34 112,56 112,94 74,116 36,94 36,56"
-            fill="#00A9C6"
-            opacity="0.95"
-            stroke="#00C8EE"
-            strokeWidth="3"
-            strokeLinejoin="round"
-          />
-
-          {/* Inner Cutout */}
-          <polygon
-            points="74,54 92,65 92,85 74,96 56,85 56,65"
-            fill={innerHexCutout}
-          />
-
-          {/* Left Arrow */}
-          <path
-            d="M 64,80 L -4,80"
-            fill="none"
-            stroke="#00C8EE"
-            strokeWidth="7"
-            strokeLinecap="round"
-          />
-          <polygon points="-12,80 4,70 4,90" fill="#00C8EE" />
-
-          {/* Down-Left Arrow */}
-          <path
-            d="M 86,96 L 68,118 L 44,136 L 36,146"
-            fill="none"
-            stroke="#00C8EE"
-            strokeWidth="7"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <polygon points="30,154 34,138 48,148" fill="#00C8EE" />
-          <circle cx="68" cy="118" r="5" fill={innerHexCutout} stroke="#00C8EE" strokeWidth="4" />
-
-          {/* Up-Right Arrow & Circuit */}
-          <path
-            d="M 88,88 L 108,70 L 108,54 L 144,30"
-            fill="none"
-            stroke="#00C8EE"
-            strokeWidth="7"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <polygon points="152,24 136,28 144,42" fill="#00C8EE" />
-          <circle cx="88" cy="88" r="5" fill={innerHexCutout} stroke="#00C8EE" strokeWidth="4" />
-          <circle cx="108" cy="70" r="4.5" fill={innerHexCutout} stroke="#00C8EE" strokeWidth="3.5" />
-
-          {/* Right Circuit Loop */}
-          <path
-            d="M 118,66 L 140,66 C 148,66 154,72 154,80 C 154,88 148,94 140,94 L 122,94"
-            fill="none"
-            stroke="#00C8EE"
-            strokeWidth="7"
-            strokeLinecap="round"
-          />
-          <circle cx="140" cy="66" r="4" fill="#00C8EE" />
-        </g>
-
-        {/* TYPOGRAPHY */}
-        <g transform="translate(182, 0)">
-          <text
-            x="0"
-            y="76"
-            fontFamily="'Plus Jakarta Sans', 'Inter', system-ui, sans-serif"
-            fontSize="64"
-            fontWeight="800"
-            letterSpacing="-1.5"
-            fill={primaryTextColor}
-          >
-            TheDigital
-          </text>
-          <text
-            x="0"
-            y="136"
-            fontFamily="'Plus Jakarta Sans', 'Inter', system-ui, sans-serif"
-            fontSize="64"
-            fontWeight="800"
-            letterSpacing="-1.5"
-            fill="#00A9C6"
-          >
-            Portal
-          </text>
-        </g>
-      </svg>
+    <div className="brand-logo-lockup" style={{ height }}>
+      <img
+        src="/thedigitalportal_logo.svg"
+        alt="TheDigitalPortal Logo"
+        className="brand-logo-emblem"
+      />
+      {showText && (
+        <span className="brand-logo-text">
+          <span className={`brand-text-main ${light ? 'light' : 'dark'}`}>TheDigital</span>
+          <span className="brand-text-portal">Portal</span>
+        </span>
+      )}
     </div>
   );
 }
@@ -206,7 +105,7 @@ function Navbar({ onOpenDemo, onOpenPortal }) {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <a href="#" className="nav-logo" aria-label="TheDigitalPortal Home">
-        <BrandLogo light={!scrolled} height={34} />
+        <BrandLogo light={!scrolled} height={40} />
       </a>
 
       <ul className="nav-links">
@@ -250,6 +149,9 @@ function Navbar({ onOpenDemo, onOpenPortal }) {
       {/* Mobile Drawer */}
       <div className={`mobile-nav-drawer ${mobileOpen ? 'open' : ''}`}>
         <div className="mobile-nav-inner">
+          <div className="mobile-nav-header">
+            <BrandLogo light={true} height={38} />
+          </div>
           <ul className="mobile-nav-links">
             {navItems.map(item => (
               <li key={item.label}>
@@ -297,8 +199,8 @@ function Hero({ onOpenDemo }) {
 
       <div className="hero-content">
         <div className="hero-eyebrow animate-up">
-          <span className="pulse-indicator" />
-          Pakistan's #1 Pharma Distribution Platform
+          <img src="/thedigitalportal_logo.svg" alt="" className="eyebrow-logo-emblem" />
+          <span>Pakistan's #1 Pharma Distribution Platform</span>
         </div>
 
         <h1 className="hero-heading animate-up delay-1">
@@ -381,9 +283,11 @@ function Hero({ onOpenDemo }) {
 
           {/* Floating Badge – Bottom */}
           <div className="hero-badge hero-badge-bottom">
-            <div className="badge-icon teal">⚡</div>
+            <div className="badge-icon portal-emblem-badge">
+              <img src="/thedigitalportal_logo.svg" alt="" className="floating-badge-logo" />
+            </div>
             <div>
-              <span className="badge-text-label">Real-time Sync</span>
+              <span className="badge-text-label">TheDigitalPortal Sync</span>
               <span className="badge-text-value">4 Portals Live & Encrypted</span>
             </div>
           </div>
@@ -1061,7 +965,7 @@ function Footer({ onOpenDemo, onOpenPortal }) {
       <div className="footer-grid container">
         <div className="footer-brand">
           <div className="footer-logo-wrap">
-            <BrandLogo light={true} height={38} />
+            <BrandLogo light={true} height={44} />
           </div>
           <p>
             The comprehensive digital infrastructure connecting Pakistan's pharmaceutical
@@ -1162,6 +1066,9 @@ function DemoModal({ isOpen, onClose }) {
         {!submitted ? (
           <>
             <div className="modal-header">
+              <div className="modal-logo-top">
+                <BrandLogo light={false} height={34} />
+              </div>
               <span className="modal-eyebrow">Personalized Walkthrough</span>
               <h3 className="modal-title">Schedule a Live Product Demo</h3>
               <p className="modal-subtitle">
@@ -1343,6 +1250,9 @@ function PortalModal({ isOpen, onClose }) {
         </button>
 
         <div className="modal-header">
+          <div className="modal-logo-top">
+            <BrandLogo light={false} height={34} />
+          </div>
           <span className="modal-eyebrow">Secure Portal Gateway</span>
           <h3 className="modal-title">Select Your Gateway</h3>
           <p className="modal-subtitle">
